@@ -19,6 +19,17 @@ jobs:
           cp /tmp/sikho-project/build.gradle.kts .
           cp /tmp/sikho-project/gradle.properties .
 
+      - name: Set Java and Kotlin target to 17
+        run: |
+          sed -i '/^android {/a\
+              compileOptions {\
+                  sourceCompatibility = JavaVersion.VERSION_17\
+                  targetCompatibility = JavaVersion.VERSION_17\
+              }\
+              kotlinOptions {\
+                  jvmTarget = "17"\
+              }' app/build.gradle.kts
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -42,3 +53,4 @@ jobs:
         with:
           name: SikhoAI-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          
