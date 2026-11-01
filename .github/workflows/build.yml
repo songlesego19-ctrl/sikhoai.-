@@ -10,8 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Extract Sikho AI project
-        run: unzip SikhoAI-Android-Project.zip -d .
+      - name: Extract project
+        run: |
+          mkdir -p /tmp/sikho-project
+          unzip -q SikhoAI-Android-Project.zip -d /tmp/sikho-project
+          cp -R /tmp/sikho-project/app ./app
+          cp /tmp/sikho-project/settings.gradle.kts .
+          cp /tmp/sikho-project/build.gradle.kts .
+          cp /tmp/sikho-project/gradle.properties .
 
       - uses: actions/setup-java@v4
         with:
